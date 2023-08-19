@@ -6,7 +6,7 @@ class_name CharacterStateMachine
 @export var animation_player : AnimationPlayer
 @export var animation_tree : AnimationTree
 @export var initial_state : CharacterState
-@export var character_input : CharacterInput
+@export var input : CharacterInput
 
 @onready var state : CharacterState = initial_state
 
@@ -16,7 +16,6 @@ func _ready():
 	for child in get_children():
 		child.sm = self
 	state.enter_state()
-
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

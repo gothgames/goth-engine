@@ -14,10 +14,10 @@ func enter_state():
 func physics_step(delta):
 	if not sm.body.is_on_floor():
 		sm.change_state(falling_state)
-	elif sm.character_input.joystick.length() == 0:
+	elif sm.input.move_force == 0:
 		sm.change_state(standing_state)
 	else:
-		sm.body.velocity = sm.character_input.joystick * speed * delta
+		sm.body.velocity = sm.input.move_vector * speed * delta
 		sm.body.move_and_slide()
 		sm.body.look_at(sm.body.position + sm.body.velocity)
 	pass

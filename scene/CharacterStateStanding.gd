@@ -14,7 +14,7 @@ func physics_step(_delta):
 	if not sm.body.is_on_floor():
 		sm.change_state(falling_state)
 	
-	elif sm.character_input.joystick.length():
+	elif sm.input.move_force:
 		sm.change_state(running_state)
 	
 

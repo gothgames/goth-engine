@@ -28,5 +28,11 @@ animation/fps=30
 animation/trimming=false
 animation/remove_immutable_tracks=true
 import_script/path=""
-_subresources={}
+_subresources={
+"nodes": {
+"PATH:Rig/Skeleton3D": {
+"retarget/bone_map": Resource("res://bonemap/MPFB Bone Map.tres")
+}
+}
+}
 gltf/embedded_image_handling=1
