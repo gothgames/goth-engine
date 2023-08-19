@@ -1,0 +1,75 @@
+[gd_scene load_steps=12 format=3 uid="uid://dsrc10otv700k"]
+
+[ext_resource type="PackedScene" uid="uid://bvp6i1rvvvnpu" path="res://gltf/hero.glb" id="1_t08r0"]
+[ext_resource type="Script" path="res://class/CharacterInput.gd" id="2_6c5ch"]
+[ext_resource type="Script" path="res://class/CharacterStateMachine.gd" id="2_v13ok"]
+[ext_resource type="Script" path="res://scene/CharacterStateStanding.gd" id="3_b8mqi"]
+[ext_resource type="Script" path="res://scene/CharacterStateRunning.gd" id="4_q777o"]
+[ext_resource type="Script" path="res://scene/CharacterStateFalling.gd" id="5_2oc0h"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_twn7t"]
+radius = 0.25
+height = 1.75
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_srq43"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_pl3v3"]
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_dixv2"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_x2u1a"]
+graph_offset = Vector2(-243.095, -41.3119)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_pl3v3")
+nodes/Animation/position = Vector2(-160, 240)
+"nodes/Animation 2/node" = SubResource("AnimationNodeAnimation_srq43")
+"nodes/Animation 2/position" = Vector2(-160, 112)
+nodes/OneShot/node = SubResource("AnimationNodeOneShot_dixv2")
+nodes/OneShot/position = Vector2(80, 144)
+node_connections = [&"output", 0, &"OneShot", &"OneShot", 0, &"Animation 2", &"OneShot", 1, &"Animation"]
+
+[node name="Hero" type="CharacterBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.875, 0)
+shape = SubResource("CapsuleShape3D_twn7t")
+
+[node name="hero" parent="." instance=ExtResource("1_t08r0")]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../hero/Rig/Skeleton3D")
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeBlendTree_x2u1a")
+anim_player = NodePath("../AnimationPlayer")
+parameters/OneShot/active = false
+parameters/OneShot/internal_active = false
+parameters/OneShot/request = 0
+
+[node name="CharacterInput" type="Node" parent="."]
+script = ExtResource("2_6c5ch")
+
+[node name="CharacterStateMachine" type="Node" parent="." node_paths=PackedStringArray("body", "animation_player", "animation_tree", "initial_state", "character_input")]
+script = ExtResource("2_v13ok")
+body = NodePath("..")
+animation_player = NodePath("../AnimationPlayer")
+animation_tree = NodePath("../AnimationTree")
+initial_state = NodePath("CharacterStateStanding")
+character_input = NodePath("../CharacterInput")
+
+[node name="CharacterStateStanding" type="Node" parent="CharacterStateMachine" node_paths=PackedStringArray("running_state", "falling_state")]
+script = ExtResource("3_b8mqi")
+running_state = NodePath("../CharacterStateRunning")
+falling_state = NodePath("../CharacterStateFalling")
+
+[node name="CharacterStateRunning" type="Node" parent="CharacterStateMachine" node_paths=PackedStringArray("standing_state", "falling_state")]
+script = ExtResource("4_q777o")
+standing_state = NodePath("../CharacterStateStanding")
+falling_state = NodePath("../CharacterStateFalling")
+speed = 50
+
+[node name="CharacterStateFalling" type="Node" parent="CharacterStateMachine" node_paths=PackedStringArray("standing_state", "running_state")]
+script = ExtResource("5_2oc0h")
+standing_state = NodePath("../CharacterStateStanding")
+running_state = NodePath("../CharacterStateRunning")
+
+[editable path="hero"]
