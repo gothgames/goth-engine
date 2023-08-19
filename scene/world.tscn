@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://cokv154mcguy4"]
+[gd_scene load_steps=8 format=3 uid="uid://cokv154mcguy4"]
 
 [ext_resource type="PackedScene" uid="uid://dsrc10otv700k" path="res://scene/hero.tscn" id="1_nhy31"]
+[ext_resource type="Script" path="res://scene/Camera3D.gd" id="2_5d6vr"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_l2g83"]
 size = Vector2(8, 8)
@@ -35,8 +36,10 @@ shape = SubResource("ConcavePolygonShape3D_2kbro")
 
 [node name="Hero" parent="." instance=ExtResource("1_nhy31")]
 
-[node name="Camera3D" type="Camera3D" parent="."]
+[node name="Camera3D" type="Camera3D" parent="." node_paths=PackedStringArray("target")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.08162, 4.97817)
+script = ExtResource("2_5d6vr")
+target = NodePath("../Hero")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_fimlx")

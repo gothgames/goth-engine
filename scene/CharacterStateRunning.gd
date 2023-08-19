@@ -19,6 +19,7 @@ func physics_step(delta):
 	else:
 		sm.body.velocity = sm.character_input.joystick * speed * delta
 		sm.body.move_and_slide()
+		sm.body.look_at(sm.body.position + sm.body.velocity)
 	pass
 
 
