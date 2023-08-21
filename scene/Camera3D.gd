@@ -14,8 +14,14 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	var displacement:Vector3
 	
-	if Input.is_action_just_pressed("focus_camera") and target.facing.length() > 0:
-		position = target.position + Vector3(0,elevation,0) - (arm_length * target.facing)
+	
+	
+	if Input.is_action_pressed("targeting"):
+		position = target.position - (arm_length * target.facing)
+		position.y = target.position.y + elevation
+		
+	if Input.is_action_just_pressed("targeting"):
+		print(target.facing)
 	
 	else:
 		displacement = target.position - position
@@ -23,5 +29,6 @@ func _process(_delta: float) -> void:
 	
 		position += displacement.normalized() * (displacement.length() - arm_length)
 		position.y = target.position.y + elevation
-		
 		look_at(target.position + Vector3.UP)
+		
+	

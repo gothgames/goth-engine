@@ -4,6 +4,8 @@ class_name CharacterInput
 
 var move_vector : Vector3
 var move_force : float
+var target : CharacterBody3D
+var targeting : bool
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -26,5 +28,10 @@ func _physics_process(_delta):
 	if camera:
 		orientation = Vector3(sin(camera.rotation.y),0,cos(camera.rotation.y))
 		move_vector = (orientation * move_vector.z) + (orientation.cross(Vector3.UP) * move_vector.x)
+		
+	if Input.is_action_pressed("targeting"):
+		targeting = true
+	else:
+		targeting = false
 	
 

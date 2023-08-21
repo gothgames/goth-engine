@@ -2,6 +2,7 @@ extends CharacterState
 
 @export var running_state : CharacterState
 @export var falling_state : CharacterState
+@export var targeting_state : CharacterState
 
 func enter_state():
 	print("Standing")
