@@ -5,7 +5,9 @@ class_name CharacterInput
 var move_vector : Vector3
 var move_force : float
 var target : CharacterBody3D
+
 var targeting : bool
+var action1 : bool
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -34,4 +36,9 @@ func _physics_process(_delta):
 	else:
 		targeting = false
 	
+	if Input.is_action_pressed("action1"):
+		action1 = true
+	else:
+		action1 = false
+		
 

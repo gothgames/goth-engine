@@ -23,11 +23,8 @@ func physics_step(_delta):
 		sm.body.look_at(sm.body.position + sm.body.velocity)
 		sm.body.facing = sm.body.velocity.normalized()
 		sm.animation_tree.set("parameters/RunBlend/blend_amount",sm.input.move_force)
-		sm.camera_arm.tethered_follow()
 
 
 
 func exit_state():
 	pass
-
-

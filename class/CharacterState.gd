@@ -16,3 +16,16 @@ func physics_step(_delta):
 
 func exit_state():
 	pass
+	
+
+func check_state():
+	pass
+	#falling
+	
+	#action
+	
+	#targeting
+	
+	#running
+	
+	#standing
