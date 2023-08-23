@@ -4,7 +4,7 @@ class_name CharacterInput
 
 var move_vector : Vector3
 var move_force : float
-var target : CharacterBody3D
+var target
 
 var targeting : bool
 var action1 : bool
@@ -41,4 +41,11 @@ func _physics_process(_delta):
 	else:
 		action1 = false
 		
+
+
+
+func _on_area_3d_body_entered(body):
+	if body is StaticBody3D:
+		target = body
+		print("Target acquired: ", target.name)
 

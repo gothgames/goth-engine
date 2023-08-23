@@ -7,6 +7,8 @@ extends Camera3D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+#	position = target.camera_arm.position
+#	look_at(target.position + Vector3.UP, Vector3.UP)
 	pass # Replace with function body.
 
 

@@ -18,7 +18,7 @@ func _process(_delta: float) -> void:
 
 		
 func locked_follow():
-	position = target.position - (arm_length * target.facing)
+	position = target.position + (arm_length * Vector3(sin(target.rotation.y),0,cos(target.rotation.y)))
 	position.y = target.position.y + elevation
 
 	
@@ -28,5 +28,6 @@ func tethered_follow():
 	
 	position += displacement.normalized() * (displacement.length() - arm_length)
 	position.y = target.position.y + elevation
+
 
 

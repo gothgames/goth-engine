@@ -4,36 +4,29 @@
 [ext_resource type="Script" path="res://scene/Camera3D.gd" id="2_5d6vr"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_l2g83"]
-size = Vector2(8, 8)
+size = Vector2(32, 32)
 
-[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_2kbro"]
-data = PackedVector3Array(4, 0, 4, -4, 0, 4, 4, 0, -4, -4, 0, 4, -4, 0, -4, 4, 0, -4)
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_tb4f5"]
+data = PackedVector3Array(16, 0, 16, -16, 0, 16, 16, 0, -16, -16, 0, 16, -16, 0, -16, 16, 0, -16)
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_4kxe2"]
-sky_top_color = Color(0.0901961, 0.372549, 1, 1)
-sky_horizon_color = Color(0.478431, 0.737255, 1, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jl1ts"]
+albedo_color = Color(0.537255, 1, 1, 1)
 
-[sub_resource type="Sky" id="Sky_ei5tu"]
-sky_material = SubResource("ProceduralSkyMaterial_4kxe2")
+[sub_resource type="BoxMesh" id="BoxMesh_uffgv"]
+material = SubResource("StandardMaterial3D_jl1ts")
 
-[sub_resource type="Environment" id="Environment_fimlx"]
-background_mode = 2
-background_energy_multiplier = 0.5
-sky = SubResource("Sky_ei5tu")
-ambient_light_source = 3
-ambient_light_color = Color(1, 1, 1, 1)
-ambient_light_sky_contribution = 0.0
-ambient_light_energy = 0.38
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_a3j26"]
+points = PackedVector3Array(0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5)
 
 [node name="World" type="Node3D"]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="Floor" type="MeshInstance3D" parent="."]
 mesh = SubResource("PlaneMesh_l2g83")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Floor"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
-shape = SubResource("ConcavePolygonShape3D_2kbro")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_tb4f5")
 
 [node name="Hero" parent="." instance=ExtResource("1_nhy31")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.183147, -0.00421751)
@@ -44,24 +37,17 @@ script = ExtResource("2_5d6vr")
 target = NodePath("../Hero")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_fimlx")
 
-[node name="OmniLight3D" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.13974, 2.24576, -3.89438)
-light_color = Color(1, 0, 0, 1)
-light_energy = 2.0
+[node name="Cube" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -3)
 
-[node name="OmniLight3D2" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.13974, 2.24576, 3.89438)
-light_color = Color(0, 1, 0, 1)
-light_energy = 2.0
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Cube"]
+mesh = SubResource("BoxMesh_uffgv")
+skeleton = NodePath("../..")
 
-[node name="OmniLight3D3" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.94858, 2.24576, 3.89438)
-light_color = Color(0, 0, 1, 1)
-light_energy = 2.0
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Cube"]
+shape = SubResource("ConvexPolygonShape3D_a3j26")
 
-[node name="OmniLight3D4" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.94858, 2.24576, -4.11406)
-light_color = Color(1, 0, 1, 1)
-light_energy = 2.0
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.872667, 0.488317, 0, -0.488317, 0.872667, 0, 9.80806, 0)
+shadow_enabled = true

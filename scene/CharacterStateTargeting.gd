@@ -21,6 +21,8 @@ func physics_step(_delta):
 		else:
 			sm.change_state(sm.standing_state)
 	else:
+		if sm.input.target:
+			sm.body.look_at(sm.input.target.position)
 		sm.body.velocity = sm.input.move_vector * speed
 		sm.body.move_and_slide()
 		sm.camera_arm.locked_follow()
