@@ -2,12 +2,15 @@
 extends Node
 class_name CharacterInput
 
+@export var body : CharacterBody3D
+@export var camera_arm : CameraArm
+
 var move_vector : Vector3
 var move_force : float
-var target
 
 var targeting : bool
 var action1 : bool
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -16,20 +19,22 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(_delta):
-	var camera : Camera3D = get_viewport().get_camera_3d()
-	var orientation : Vector3
+
 	
 	move_vector.x = Input.get_action_strength("move_left") - Input.get_action_strength("move_right")
 	move_vector.z = Input.get_action_strength("move_backward") - Input.get_action_strength("move_forward")
+	
+	#"- 0.1 * abs(move_vector.x)" is a hacky solution to get more perfect circles when strafing
+	move_vector = camera_arm.displacement * (move_vector.z - 0.1 * abs(move_vector.x)) + (camera_arm.displacement.cross(Vector3.UP) * move_vector.x)
 	
 	move_force = move_vector.length()
 	if move_force > 1.0:
 		move_vector = move_vector.normalized()
 		move_force = 1.0
 	
-	if camera:
-		orientation = Vector3(sin(camera.rotation.y),0,cos(camera.rotation.y))
-		move_vector = (orientation * move_vector.z) + (orientation.cross(Vector3.UP) * move_vector.x)
+
+
+
 		
 	if Input.is_action_pressed("targeting"):
 		targeting = true
@@ -40,12 +45,3 @@ func _physics_process(_delta):
 		action1 = true
 	else:
 		action1 = false
-		
-
-
-
-func _on_area_3d_body_entered(body):
-	if body is StaticBody3D:
-		target = body
-		print("Target acquired: ", target.name)
-

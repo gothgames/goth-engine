@@ -1,4 +1,5 @@
 extends CharacterState
+class_name CharacterStateRunning
 
 
 

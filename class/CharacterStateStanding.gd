@@ -1,4 +1,5 @@
 extends CharacterState
+class_name CharacterStateStanding
 
 
 func enter_state():

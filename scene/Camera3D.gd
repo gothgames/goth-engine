@@ -16,5 +16,6 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	position = lerp(position, target.camera_arm.position, 0.2)
 	look_at(target.position + Vector3.UP, Vector3.UP)
+	pass
 		
 	

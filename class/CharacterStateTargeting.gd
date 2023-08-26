@@ -1,5 +1,5 @@
 extends CharacterState
-
+class_name CharacterStateTargeting
 
 
 @export var speed : int# temporary variable
@@ -7,6 +7,9 @@ extends CharacterState
 func enter_state():
 	print("Targeting")
 	sm.animation_tree.set("parameters/RunBlend/blend_amount",1.0)
+	sm.marker_tracker.get_nearest()
+	if sm.body.next_target:
+		sm.body.target = sm.body.next_target
 	pass # Replace with function body.
 
 
@@ -21,11 +24,11 @@ func physics_step(_delta):
 		else:
 			sm.change_state(sm.standing_state)
 	else:
-		if sm.input.target:
-			sm.body.look_at(sm.input.target.position)
+		if sm.body.target:
+			sm.body.look_at(Vector3(sm.body.target.position.x,sm.body.position.y,sm.body.target.position.z))
 		sm.body.velocity = sm.input.move_vector * speed
 		sm.body.move_and_slide()
-		sm.camera_arm.locked_follow()
+		sm.camera_arm.targeted_follow()
 
 
 

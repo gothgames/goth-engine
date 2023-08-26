@@ -5,9 +5,9 @@ class_name CharacterStateMachine
 @export_category("Character Nodes")
 @export var body : CharacterBody3D
 @export var camera_arm : CameraArm
+@export var marker_tracker : MarkerTracker
 @export var animation_player : AnimationPlayer
 @export var animation_tree : AnimationTree
-
 @export var input : CharacterInput
 
 @export_category("State Nodes")
@@ -15,7 +15,6 @@ class_name CharacterStateMachine
 @export var standing_state : CharacterState
 @export var running_state : CharacterState
 @export var targeting_state : CharacterState
-@export var action_state : CharacterState
 @export var falling_state : CharacterState
 
 
