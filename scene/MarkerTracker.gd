@@ -10,7 +10,7 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func get_nearest():
+func find_nearest():
 	var nearest
 	var nearest_dist
 	for i in get_children():

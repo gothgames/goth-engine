@@ -5,6 +5,7 @@ class_name CharacterInput
 @export var body : CharacterBody3D
 @export var camera_arm : CameraArm
 
+var input_vector : Vector3
 var move_vector : Vector3
 var move_force : float
 
@@ -21,15 +22,16 @@ func _ready():
 func _physics_process(_delta):
 
 	
-	move_vector.x = Input.get_action_strength("move_left") - Input.get_action_strength("move_right")
-	move_vector.z = Input.get_action_strength("move_backward") - Input.get_action_strength("move_forward")
+	input_vector.x = Input.get_action_strength("move_left") - Input.get_action_strength("move_right")
+	input_vector.z = Input.get_action_strength("move_backward") - Input.get_action_strength("move_forward")
 	
 	#"- 0.1 * abs(move_vector.x)" is a hacky solution to get more perfect circles when strafing
-	move_vector = camera_arm.displacement * (move_vector.z - 0.1 * abs(move_vector.x)) + (camera_arm.displacement.cross(Vector3.UP) * move_vector.x)
+	move_vector = camera_arm.displacement * (input_vector.z - 0.1 * abs(input_vector.x)) + (camera_arm.displacement.cross(Vector3.UP) * input_vector.x)
 	
 	move_force = move_vector.length()
 	if move_force > 1.0:
 		move_vector = move_vector.normalized()
+		input_vector = input_vector.normalized()
 		move_force = 1.0
 	
 

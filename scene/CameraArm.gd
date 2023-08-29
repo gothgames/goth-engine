@@ -27,8 +27,6 @@ func targeted_follow():
 		displacement = Vector3(position.x - body.target.position.x, 0, position.z - body.target.position.z)
 	else:
 		displacement = Vector3(sin(body.rotation.y), 0, cos(body.rotation.y))
-##	position = target.position + (arm_length * Vector3(sin(target.rotation.y),0,cos(target.rotation.y)))
-##	position.y = target.position.y + elevation
 	position = body.position + (arm_length * displacement.normalized())
 	position.y = body.position.y + elevation
 

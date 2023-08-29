@@ -38,7 +38,7 @@ script = ExtResource("2_5d6vr")
 target = NodePath("../Hero")
 
 [node name="Cube" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 12.2567)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.94166, 0.5, 9.98812)
 script = ExtResource("3_y2gr4")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Cube"]
@@ -60,7 +60,7 @@ skeleton = NodePath("../..")
 shape = SubResource("ConvexPolygonShape3D_a3j26")
 
 [node name="Cube3" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.61725, 0.5, 12.2567)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.95757, 0.5, 9.35753)
 script = ExtResource("3_y2gr4")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Cube3"]
