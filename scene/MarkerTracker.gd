@@ -20,6 +20,21 @@ func find_nearest():
 			nearest_dist = i_dist
 	if nearest:
 		character.next_target = nearest
+		
+		
+func aim_assist():
+	var nearest
+	var nearest_dot
+	for i in get_children():
+		var i_dot = character.rotation.dot((i.position - character.position).normalized())
+		if not nearest or i_dot < nearest_dot:
+			nearest = i
+			nearest_dot = i_dot
+	if nearest:
+		character.next_target = nearest
+		
+
+	
 
 
 func _on_area_3d_body_entered(body):

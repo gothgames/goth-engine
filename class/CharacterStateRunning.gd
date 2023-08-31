@@ -20,9 +20,10 @@ func physics_step(_delta):
 		sm.change_state(sm.targeting_state)
 	else:
 		sm.body.velocity = sm.input.move_vector * speed
-		sm.body.move_and_slide()
-		sm.body.look_at(sm.body.position + sm.input.move_vector)
+		sm.body.direction = sm.body.velocity.normalized()
+		sm.body.look_at(sm.body.position + sm.body.direction)
 		sm.camera_arm.tethered_follow()
+		sm.body.move_and_slide()
 		sm.animation_tree.set("parameters/RunBlend/blend_amount",sm.input.move_force)
 		
 
