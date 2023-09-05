@@ -11,9 +11,9 @@ var target : Vector3
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	set_as_top_level(true)
+
 	displacement = Vector3(sin(body.rotation.y), 0, cos(body.rotation.y))
-	position = body.position + (arm_length * displacement.normalized())
+	global_transform.origin = body.position + (arm_length * displacement.normalized())
 	pass # Replace with function body.
 
 
