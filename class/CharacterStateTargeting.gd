@@ -6,13 +6,13 @@ class_name CharacterStateTargeting
 
 func enter_state():
 	print("Targeting")
-	sm.animation_tree.set("parameters/RunBlend/blend_amount",1.0)
+
 
 
 	
 ##Crashes when backing away from marker
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func physics_step(_delta):
+func physics_step(delta):
 	if not sm.body.is_on_floor():
 		sm.change_state(sm.falling_state)
 		
@@ -22,17 +22,13 @@ func physics_step(_delta):
 		else:
 			sm.change_state(sm.standing_state)
 	else:
-		if sm.body.target:
-			sm.body.look_at(Vector3(sm.body.target.position.x,sm.body.position.y,sm.body.target.position.z))
-		sm.body.velocity = sm.input.move_vector * speed
-		sm.body.move_and_slide()
+		sm.body.rotate(Vector3.UP,delta * sm.input.input_vector.x * 2.0)
 		sm.camera_arm.targeted_follow()
-		sm.animation_tree.set("parameters/RunBlend/blend_amount",sm.input.move_force)
-		sm.animation_tree.set("parameters/TurnBlend/add_amount",sm.input.input_vector.x)
+
+
 
 
 
 
 func exit_state():
-	sm.animation_tree.set("parameters/TurnBlend/add_amount",0)
 	pass

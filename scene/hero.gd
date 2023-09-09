@@ -5,8 +5,14 @@ class_name PlayerCharacter
 #@export var rig : Node3D
 
 var direction : Vector3
-var target : Node3D
 
+var target : Node3D
+var target_dir : Vector3
+var head_turn : int
+
+func _physics_process(_delta):
+	target = find_target("targetable",2,90)
+	update_head_turn()
 
 
 func find_target(group,range,arc):
@@ -30,10 +36,13 @@ func find_target(group,range,arc):
 		return nearest
 
 
-func head_turn(target):
-	var target_dir = (target.position - position).normalized().cross(Vector3.UP)
-	var dot = -direction.dot(target_dir)
-	return dot
+
+
+func update_head_turn():
+	if target:
+		target_dir = (target.position - position).normalized().cross(Vector3.UP)
+		head_turn = -direction.dot(target_dir)
+
 
 
 func _on_area_3d_body_entered(body):

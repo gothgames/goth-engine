@@ -3,18 +3,17 @@ class_name CharacterStateAction
 
 # Called when the node enters the scene tree for the first time.
 func enter_state():
-	sm.animation_tree.set("parameters/TurnBlend/add_amount",0)
-	sm.body.target = sm.body.find_target("targetable",2,90)
+
 	if sm.body.target:
 		sm.body.look_at(Vector3(sm.body.target.position.x,sm.body.position.y,sm.body.target.position.z))
 		
-	sm.animation_tree.set("parameters/ActionShot/request",AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
+	sm.animation_tree.fire_action("blank")
 	pass
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func physics_step(_delta):
-	if not sm.animation_tree.get("parameters/ActionShot/active"):
+	if not sm.animation_tree.get_action_active():
 		action_end()
 
 
@@ -38,4 +37,4 @@ func action_end():
 		sm.change_state(sm.standing_state)
 
 func exit_state():
-	sm.animation_tree.set("parameters/ActionShot/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_ABORT)
+	sm.animation_tree.abort_action()
