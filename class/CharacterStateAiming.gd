@@ -1,11 +1,11 @@
 extends CharacterState
-class_name CharacterStateTargeting
+class_name CharacterStateAiming
 
 
 const ROT_SPEED = 2.5
 
 func enter_state():
-	print("Targeting")
+	print("Aiming")
 
 
 
@@ -16,15 +16,17 @@ func physics_step(delta):
 	if not sm.body.is_on_floor():
 		sm.change_state(sm.falling_state)
 		
-	elif not sm.input.targeting:
+	elif not sm.input.aiming:
 		if sm.input.move_force:
 			sm.change_state(sm.running_state)
 		else:
 			sm.change_state(sm.standing_state)
 	
 	else:
+		
 		sm.body.rotate(Vector3.UP,delta * sm.input.input_vector.x * ROT_SPEED)
-		sm.camera_arm.targeted_follow()
+		sm.camera_arm.aiming()
+		
 
 
 

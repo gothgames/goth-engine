@@ -14,7 +14,7 @@ class_name CharacterStateMachine
 @export var initial_state : CharacterState
 @export var standing_state : CharacterState
 @export var running_state : CharacterState
-@export var targeting_state : CharacterState
+@export var aiming_state : CharacterState
 @export var falling_state : CharacterState
 @export var action_state : CharacterState
 

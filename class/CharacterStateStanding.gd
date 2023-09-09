@@ -17,8 +17,8 @@ func physics_step(_delta):
 	elif sm.input.action:
 		sm.change_state(sm.action_state)
 		
-	elif sm.input.targeting:
-		sm.change_state(sm.targeting_state)
+	elif sm.input.aiming:
+		sm.change_state(sm.aiming_state)
 	
 	elif sm.input.move_force:
 		sm.change_state(sm.running_state)

@@ -9,7 +9,7 @@ var input_vector : Vector3
 var move_vector : Vector3
 var move_force : float
 
-var targeting : bool
+var aiming : bool
 var action : bool
 
 
@@ -32,9 +32,9 @@ func _physics_process(_delta):
 		move_force = 1.0
 		
 	if Input.is_action_pressed("targeting"):
-		targeting = true
+		aiming = true
 	else:
-		targeting = false
+		aiming = false
 	
 	if Input.is_action_pressed("action"):
 		action = true

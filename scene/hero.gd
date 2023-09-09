@@ -3,24 +3,25 @@ class_name PlayerCharacter
 
 @export var camera_arm : CameraArm
 
-var direction : Vector3
 var target : Node3D
 
 
 func _physics_process(_delta):
-	if velocity:
-		direction = Vector3(velocity.x,0,velocity.z).normalized()
+	pass
 
 
-
-func auto_aim(group,range,arc):
-	target = find_target(group,range,arc)
+func direction():
+	return Vector3(sin(rotation.y), 0, cos(rotation.y))
+	
+	
+func auto_aim(group,reach,arc):
+	target = find_target(group,reach,arc)
 	if target:
 		look_at(Vector3(target.position.x,position.y,target.position.z))
 
 
 
-func find_target(group,range,arc):
+func find_target(group,reach,arc):
 	var nearest
 	var nearest_dot
 	var arc_length = cos(deg_to_rad(arc))
@@ -30,10 +31,10 @@ func find_target(group,range,arc):
 		var i_disp = i.position - position
 		var i_dist = i_disp.length()
 		var i_dir = i_disp.normalized()
-		var i_dot = i_dir.dot(direction)
+		var i_dot = i_dir.dot(direction())
 		
 		if not nearest or i_dot > nearest_dot:
-			if i_dot > arc_length and i_dist <= range:
+			if i_dot > arc_length and i_dist <= reach:
 				nearest = i
 				nearest_dot = i_dot
 			

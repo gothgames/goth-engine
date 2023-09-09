@@ -22,7 +22,7 @@ func _process(_delta: float) -> void:
 	pass
 
 		
-func targeted_follow():
+func aiming():
 	if body.target:
 		displacement = Vector3(position.x - body.target.position.x, 0, position.z - body.target.position.z)
 	else:

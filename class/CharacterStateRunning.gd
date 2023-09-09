@@ -22,15 +22,14 @@ func physics_step(_delta):
 	elif sm.input.action:
 		sm.change_state(sm.action_state)
 		
-	elif sm.input.targeting:
-		sm.change_state(sm.targeting_state)
+	elif sm.input.aiming:
+		sm.change_state(sm.aiming_state)
 	else:
 		sm.camera_arm.tethered_follow()
 		
 		sm.body.velocity = sm.input.move_vector * speed
-		sm.body.direction = sm.input.move_vector.normalized()
+		sm.body.look_at(sm.body.position + sm.body.velocity)
 		sm.body.move_and_slide()
-		sm.body.look_at(sm.body.position + sm.body.direction)
 		
 		sm.animation_tree.set_run_speed(sm.input.move_force)
 
