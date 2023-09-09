@@ -4,6 +4,7 @@ class_name CharacterStateMachine
 
 @export_category("Character Nodes")
 @export var body : CharacterBody3D
+@export var detector : Area3D
 @export var camera_arm : CameraArm
 @export var animation_player : AnimationPlayer
 @export var animation_tree : AnimationTree

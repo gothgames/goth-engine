@@ -2,7 +2,7 @@ extends CharacterState
 class_name CharacterStateTargeting
 
 
-@export var speed : int# temporary variable
+const ROT_SPEED = 2.5
 
 func enter_state():
 	print("Targeting")
@@ -21,8 +21,9 @@ func physics_step(delta):
 			sm.change_state(sm.running_state)
 		else:
 			sm.change_state(sm.standing_state)
+	
 	else:
-		sm.body.rotate(Vector3.UP,delta * sm.input.input_vector.x * 2.0)
+		sm.body.rotate(Vector3.UP,delta * sm.input.input_vector.x * ROT_SPEED)
 		sm.camera_arm.targeted_follow()
 
 

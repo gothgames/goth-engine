@@ -4,8 +4,7 @@ class_name CharacterStateAction
 # Called when the node enters the scene tree for the first time.
 func enter_state():
 
-	if sm.body.target:
-		sm.body.look_at(Vector3(sm.body.target.position.x,sm.body.position.y,sm.body.target.position.z))
+	sm.body.auto_aim("targetable",2,60)
 		
 	sm.animation_tree.fire_action("blank")
 	pass

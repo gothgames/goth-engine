@@ -15,3 +15,8 @@ func get_action_active():
 	
 func abort_action():
 	set("parameters/ActionShot/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_ABORT)
+	
+#func update_head_turn(body_direction : Vector3, head_direction : Vector3):
+#	var head_turn
+#	head_direction = head_direction.cross(Vector3.UP)
+#	head_turn = -body_direction.dot(head_direction)

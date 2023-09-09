@@ -2,17 +2,22 @@ extends CharacterBody3D
 class_name PlayerCharacter
 
 @export var camera_arm : CameraArm
-#@export var rig : Node3D
 
 var direction : Vector3
-
 var target : Node3D
-var target_dir : Vector3
-var head_turn : int
+
 
 func _physics_process(_delta):
-	target = find_target("targetable",2,90)
-	update_head_turn()
+	if velocity:
+		direction = Vector3(velocity.x,0,velocity.z).normalized()
+
+
+
+func auto_aim(group,range,arc):
+	target = find_target(group,range,arc)
+	if target:
+		look_at(Vector3(target.position.x,position.y,target.position.z))
+
 
 
 func find_target(group,range,arc):
@@ -20,7 +25,7 @@ func find_target(group,range,arc):
 	var nearest_dot
 	var arc_length = cos(deg_to_rad(arc))
 	
-	for i in get_tree().get_nodes_in_group("targetable"):
+	for i in get_tree().get_nodes_in_group(group):
 		
 		var i_disp = i.position - position
 		var i_dist = i_disp.length()
@@ -34,14 +39,6 @@ func find_target(group,range,arc):
 			
 	if nearest and nearest_dot < 1:
 		return nearest
-
-
-
-
-func update_head_turn():
-	if target:
-		target_dir = (target.position - position).normalized().cross(Vector3.UP)
-		head_turn = -direction.dot(target_dir)
 
 
 
