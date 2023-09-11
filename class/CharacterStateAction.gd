@@ -4,10 +4,9 @@ class_name CharacterStateAction
 # Called when the node enters the scene tree for the first time.
 func enter_state():
 
-	sm.body.auto_aim("targetable",2,60)
-		
-	sm.animation_tree.fire_action("blank")
-	pass
+
+	sm.body.auto_aim("targetable",2,90)
+	sm.animation_tree.fire_action("character_animations/punching")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -27,7 +26,7 @@ func action_end():
 		sm.change_state(sm.falling_state)
 		
 	elif sm.input.action:
-		sm.change_state(sm.action_state)
+		sm.animation_tree.fire_action("character_animations/punching")
 		
 	elif sm.input.aiming:
 		sm.change_state(sm.aiming_state)
