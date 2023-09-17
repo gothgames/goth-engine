@@ -5,6 +5,7 @@ class_name CharacterStateAiming
 const ROT_SPEED = 2.5
 
 func enter_state():
+	sm.body.target = null
 	print("Aiming")
 
 
